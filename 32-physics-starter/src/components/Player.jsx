@@ -4,6 +4,7 @@ import { RigidBody } from "@react-three/rapier";
 import { Controls } from "../App";
 import { useRef } from "react";
 import { Vector3 } from "three";
+import { BallCollider } from "@react-three/rapier";
 const MOVEMENT_SPEED = 5;
 const JUMP_FORCE = 8;
 
@@ -41,7 +42,15 @@ export const Player = () => {
   });
 
   return (
-    <RigidBody ref={rb} lockRotations>
+    <RigidBody
+      gravityScale={2.5}
+      ref={rb}
+      lockRotations
+      onCollisionEnter={({ other }) => {
+        if (other.rigidBodyObject.name === "ground") {
+          inTheAir.current = false;
+        }
+      }}>
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />
