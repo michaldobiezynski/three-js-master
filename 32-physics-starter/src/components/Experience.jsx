@@ -1,4 +1,4 @@
-import { Grid, OrbitControls } from "@react-three/drei";
+import { Gltf, Grid, OrbitControls } from "@react-three/drei";
 import { Player } from "./Player";
 
 import { RigidBody } from "@react-three/rapier";
@@ -11,12 +11,16 @@ export const Experience = () => {
       <OrbitControls />
       <ambientLight intensity={0.5} />
       <Player />
-      <RigidBody type="fixed" name="ground" >
+      <RigidBody type="fixed" name="ground">
         <mesh position-y={-0.251} receiveShadow>
           <boxGeometry args={[20, 0.5, 20]} />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
       </RigidBody>
+      <RigidBody>
+        <Gltf src="/models/ball.glb" castShadow />
+      </RigidBody>
+
       <Grid
         sectionSize={3}
         sectionColor={"white"}
