@@ -1,5 +1,5 @@
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { RigidBody, euler } from "@react-three/rapier";
 import { Controls } from "../App";
 import { useRef } from "react";
@@ -72,6 +72,18 @@ export const Player = () => {
     });
   };
 
+  const scene = useThree((state) => state.scene);
+
+  const teleport = () => {
+    const gateOut = scene.getObjectByName("gateLargeWide_teamYellow");
+    rb.current.setTranslation({
+      x: gateOut.position.x,
+      y: gateOut.position.y + 1,
+      z: gateOut.position.z,
+    });
+    q;
+  };
+
   return (
     <RigidBody
       gravityScale={2.5}
@@ -91,6 +103,10 @@ export const Player = () => {
       onIntersectionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "space") {
           respawn();
+        }
+
+        if (other.rigidBodyObject.name === "gateIn") {
+          teleport();
         }
       }}>
       <PerspectiveCamera makeDefault position={[0, 5, 8]} ref={camera} />

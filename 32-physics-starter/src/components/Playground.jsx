@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.3 public/models/playground.glb -o src/components/Playgr
 */
 
 import { useGLTF } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import React from "react";
 
 export function Playground(props) {
@@ -24,6 +24,22 @@ export function Playground(props) {
 
   return (
     <group {...props} dispose={null}>
+      <RigidBody
+        colliders={false}
+        sensor
+        name="gateIn"
+        type="fixed"
+        position={[-20.325, -0.249, -28.42]}>
+        <mesh
+          rotation={[0, 1.571, 0]}
+          receiveShadow
+          castShadow
+          name="gateLargeWide_teamBlue"
+          geometry={nodes.gateLargeWide_teamBlue.geometry}
+          material={materials["Blue.020"]}
+        />
+        <CuboidCollider args={[0.5, 2, 1.5]} position={[-1, 0, 0]} />
+      </RigidBody>
       <RigidBody
         type="kinematicVelocity"
         colliders="trimesh"
@@ -104,15 +120,7 @@ export function Playground(props) {
             material={materials["Metal.050"]}
           />
         </group>
-        <mesh
-          receiveShadow
-          castShadow
-          name="gateLargeWide_teamBlue"
-          geometry={nodes.gateLargeWide_teamBlue.geometry}
-          material={materials["Blue.020"]}
-          position={[-20.325, -0.249, -28.42]}
-          rotation={[0, 1.571, 0]}
-        />
+
         <mesh
           receiveShadow
           castShadow
