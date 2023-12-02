@@ -16,6 +16,10 @@ export const Experience = () => {
       <Stage intensity={0.4} preset={"upfront"} environment={"studio"}>
         <TeslaModel3 scale={0.012} position-z={0.6} />
       </Stage>
+      <mesh position-y={-1.18} rotation-x={Math.PI / 2}>
+        <planeGeometry args={[100, 100]} />
+        <meshStandardMaterial color={"#fff"} />
+      </mesh>
     </>
   );
 };
