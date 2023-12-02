@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { Vector3 } from "three";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { Item } from "./Item";
+import { OrbitControls } from "@react-three/drei";
+import { PerspectiveCamera } from "@react-three/drei";
 
 const GrowingFlower = ({
   children,
@@ -27,14 +29,15 @@ const GrowingFlower = ({
 export const Hero3D = () => {
   return (
     <>
+      {/* <OrbitControls />
+      <PerspectiveCamera makeDefault position={[0, 0, 1.5]} fov={30} /> */}
       <Float
         rotationIntensity={0.3}
         floatIntensity={0.4}
         rotation-x={degToRad(-15)}
         rotation-y={degToRad(15)}
         scale={0.4}
-        position-y={0.12}
-      >
+        position-y={0.12}>
         <GrowingFlower growSpeed={0.22}>
           <Item model="Flower_1" scale={0.6} />
         </GrowingFlower>
