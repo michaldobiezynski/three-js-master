@@ -1,20 +1,26 @@
-import { useKeyboardControls } from "@react-three/drei";
+import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
 import { Controls } from "../App";
 import { useRef } from "react";
 import { Vector3 } from "three";
 import { BallCollider } from "@react-three/rapier";
+import { vec3 } from "@react-three/rapier";
 const MOVEMENT_SPEED = 5;
 const JUMP_FORCE = 8;
 
 export const Player = () => {
+  const camera = useRef();
+  const cameraTarget = useRef(new Vector3(0, 0, 0));
   const rb = useRef();
   const [, get] = useKeyboardControls();
   const vel = new Vector3();
   const inTheAir = useRef(false);
 
   useFrame(() => {
+    cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
+    camera.current.lookAt(cameraTarget.current);
+
     const curVel = rb.current?.linvel();
 
     vel.x = 0;
@@ -51,6 +57,7 @@ export const Player = () => {
           inTheAir.current = false;
         }
       }}>
+      <PerspectiveCamera makeDefault position={[0, 5, 8]} ref={camera} />
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />
