@@ -13,14 +13,19 @@ export const Experience = () => {
         minDistance={6}
       />
       <ambientLight intensity={0.4} />
-      <Stage intensity={0.4} preset={"upfront"} environment={"studio"}>
-        <TeslaModel3 scale={0.012} position-z={0.6} />
-      </Stage>
+      {/* <Stage intensity={0.4} preset={"upfront"} environment={"studio"}> */}
+      <TeslaModel3 scale={0.012} position-z={0.6} />
+      {/* </Stage> */}
 
       {/* Ground */}
       <mesh position={[0, -1.18, 0]} rotation-x={-Math.PI / 2}>
         <planeGeometry args={[100, 100]} />
-        <MeshReflectorMaterial color={"#171720"} />
+        <MeshReflectorMaterial
+          color={"#171720"}
+          resolution={1024}
+          roughness={0.6}
+          mixStrength={3}
+        />
       </mesh>
     </>
   );
