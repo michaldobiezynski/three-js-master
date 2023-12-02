@@ -6,6 +6,7 @@ import {
 } from "@react-three/drei";
 import { TeslaModel3 } from "./TeslaModel3";
 import { Background } from "./Background";
+import { Lights } from "./Lights";
 
 export const Experience = () => {
   return (
@@ -20,8 +21,9 @@ export const Experience = () => {
       />
       <ambientLight intensity={0.4} />
       {/* <Stage intensity={0.4} preset={"upfront"} environment={"studio"}> */}
-      <Environment>
-        <Background />
+      <Environment frames={Infinity} resolution={512} blur={0.5}>
+        {/* <Background /> */}
+        <Lights />
       </Environment>
       <TeslaModel3 scale={0.012} position-z={0.6} />
       {/* </Stage> */}
