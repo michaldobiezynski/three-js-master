@@ -7,6 +7,7 @@ import { Services3D } from "./Services3D";
 import { TeamMember } from "./TeamMember";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { ContactShadows, Environment, Float } from "@react-three/drei";
+import { Portfolio3D } from "./Portfolio3D";
 
 export const HomePage = () => {
   const heroContainer = useRef();
@@ -15,6 +16,8 @@ export const HomePage = () => {
   const johnDoeContainer = useRef();
   const juliaDoeContainer = useRef();
   const lindaDoeContainer = useRef();
+
+  const container = useRef();
 
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -29,8 +32,9 @@ export const HomePage = () => {
   const [currentService, setCurrentService] = useState(0);
 
   return (
-    <main>
+    <main ref={container}>
       <Canvas
+        eventSource={container}
         className="canvas"
         camera={{
           position: [0, 0, 1.5],
@@ -65,6 +69,9 @@ export const HomePage = () => {
             rotation-y={-degToRad(20)}
           />
           <Environment preset="sunset" />
+        </View>
+        <View track={portfolioContainer}>
+          <Portfolio3D />
         </View>
       </Canvas>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
