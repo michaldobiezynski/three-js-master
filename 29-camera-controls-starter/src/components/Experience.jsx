@@ -1,9 +1,18 @@
-import { Environment, Gltf, OrbitControls } from "@react-three/drei";
+import { Environment, Gltf, CameraControls } from "@react-three/drei";
+import { useRef } from "react";
+import { useControls, button } from "leva";
 
 export const Experience = () => {
+  const controls = useRef();
+
+  useControls("Dolly", {
+    in: button(() => controls.current?.dolly(1, true)),
+    out: button(() => controls.current?.dolly(-1, true)),
+  });
+
   return (
     <>
-      <OrbitControls />
+      <CameraControls ref={controls} />
       <Gltf
         position={[0, 0, 0]}
         src="models/apple_iphone_15_pro_max_black.glb"
