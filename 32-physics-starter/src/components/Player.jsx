@@ -8,6 +8,7 @@ import { BallCollider } from "@react-three/rapier";
 import { vec3 } from "@react-three/rapier";
 const MOVEMENT_SPEED = 5;
 const JUMP_FORCE = 8;
+const ROTATION_SPEED = 5;
 
 export const Player = () => {
   const camera = useRef();
@@ -26,6 +27,13 @@ export const Player = () => {
     vel.x = 0;
     vel.y = 0;
     vel.z = 0;
+
+    const rotVel = {
+      x: 0,
+      y: 0,
+      z: 0,
+    };
+
     if (get()[Controls.forward]) {
       vel.z -= MOVEMENT_SPEED;
     }
@@ -33,11 +41,14 @@ export const Player = () => {
       vel.z += MOVEMENT_SPEED;
     }
     if (get()[Controls.left]) {
-      vel.x -= MOVEMENT_SPEED;
+      rotVel.y += ROTATION_SPEED;
     }
     if (get()[Controls.right]) {
-      vel.x += MOVEMENT_SPEED;
+      rotVel.y -= ROTATION_SPEED;
     }
+
+    rb.current.setAngvel(rotVel, true);
+
     if (get()[Controls.jump] && !inTheAir.current) {
       vel.y += JUMP_FORCE;
       inTheAir.current = true;
