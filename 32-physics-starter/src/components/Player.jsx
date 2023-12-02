@@ -1,11 +1,12 @@
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { RigidBody } from "@react-three/rapier";
+import { RigidBody, euler } from "@react-three/rapier";
 import { Controls } from "../App";
 import { useRef } from "react";
 import { Vector3 } from "three";
 import { BallCollider } from "@react-three/rapier";
 import { vec3 } from "@react-three/rapier";
+import { quat } from "@react-three/rapier";
 const MOVEMENT_SPEED = 5;
 const JUMP_FORCE = 8;
 const ROTATION_SPEED = 5;
@@ -48,6 +49,8 @@ export const Player = () => {
     }
 
     rb.current.setAngvel(rotVel, true);
+    const eulerRot = euler().setFromQuaternion(quat(rb.current.rotation()));
+    vel.applyEuler(eulerRot);
 
     if (get()[Controls.jump] && !inTheAir.current) {
       vel.y += JUMP_FORCE;
