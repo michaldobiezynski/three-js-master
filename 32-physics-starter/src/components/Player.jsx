@@ -18,6 +18,7 @@ export const Player = () => {
   const [, get] = useKeyboardControls();
   const vel = new Vector3();
   const inTheAir = useRef(false);
+  const punched = useRef(false);
 
   useFrame(() => {
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
@@ -58,7 +59,9 @@ export const Player = () => {
     } else {
       vel.y = curVel.y;
     }
-    rb.current.setLinvel(vel, true);
+    if (!punched.current) {
+      rb.current.setLinvel(vel, true);
+    }
   });
 
   const respawn = () => {
@@ -77,6 +80,12 @@ export const Player = () => {
       onCollisionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "ground") {
           inTheAir.current = false;
+        }
+        if (other.rigidBodyObject.name === "swiper") {
+          punched.current = true;
+          setTimeout(() => {
+            punched.current = false;
+          }, 1000);
         }
       }}
       onIntersectionEnter={({ other }) => {
