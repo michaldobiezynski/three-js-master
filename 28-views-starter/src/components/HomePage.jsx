@@ -1,7 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Hero } from "./Hero";
+import { Canvas } from "@react-three/fiber";
+import { Hero3D } from "./Hero3D";
+import { View } from "@react-three/drei";
+import { Services3D } from "./Services3D";
+import { TeamMember } from "./TeamMember";
+import { degToRad } from "three/src/math/MathUtils.js";
+import { ContactShadows, Environment, Float } from "@react-three/drei";
 
 export const HomePage = () => {
+  const heroContainer = useRef();
+  const servicesContainer = useRef();
+  const portfolioContainer = useRef();
+  const johnDoeContainer = useRef();
+  const juliaDoeContainer = useRef();
+  const lindaDoeContainer = useRef();
+
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => {
@@ -16,6 +30,43 @@ export const HomePage = () => {
 
   return (
     <main>
+      <Canvas
+        className="canvas"
+        camera={{
+          position: [0, 0, 1.5],
+          fov: 30,
+        }}>
+        <View track={heroContainer}>
+          <Hero3D />
+        </View>
+        <View track={servicesContainer}>
+          <Services3D currentService={currentService} />
+        </View>
+        <View track={johnDoeContainer}>
+          <TeamMember
+            model="Suit"
+            position-y={-1.5}
+            rotation-y={-degToRad(20)}
+          />
+          <Environment preset="sunset" />
+        </View>
+        <View track={juliaDoeContainer}>
+          <TeamMember
+            model="Formal"
+            position-y={-1.5}
+            rotation-y={-degToRad(20)}
+          />
+          <Environment preset="sunset" />
+        </View>
+        <View track={lindaDoeContainer}>
+          <TeamMember
+            model="Casual"
+            position-y={-1.5}
+            rotation-y={-degToRad(20)}
+          />
+          <Environment preset="sunset" />
+        </View>
+      </Canvas>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
         <div className="header__menu">
           <a href="#hero" className="header__menu__item">
@@ -36,11 +87,13 @@ export const HomePage = () => {
         </div>
       </header>
 
-      <Hero />
+      <Hero ref={heroContainer} />
       <section className="services" id="services">
         <h2 className="services__title">Our Services</h2>
         <div className="services__slider">
-          <div className="services__slider__display"></div>
+          <div
+            className="services__slider__display"
+            ref={servicesContainer}></div>
           <div className="services__slider__list">
             <div
               className={`services__slider__list__service ${
@@ -48,8 +101,7 @@ export const HomePage = () => {
                   ? "services__slider__list__service--active"
                   : ""
               }`}
-              onClick={() => setCurrentService(0)}
-            >
+              onClick={() => setCurrentService(0)}>
               <h3 className="services__slider__list__service__title">
                 Web/Mobile App Development
               </h3>
@@ -67,8 +119,7 @@ export const HomePage = () => {
                   ? "services__slider__list__service--active"
                   : ""
               }`}
-              onClick={() => setCurrentService(1)}
-            >
+              onClick={() => setCurrentService(1)}>
               <h3 className="services__slider__list__service__title">
                 VR/AR App Development
               </h3>
@@ -86,8 +137,7 @@ export const HomePage = () => {
                   ? "services__slider__list__service--active"
                   : ""
               }`}
-              onClick={() => setCurrentService(2)}
-            >
+              onClick={() => setCurrentService(2)}>
               <h3 className="services__slider__list__service__title">
                 Training
               </h3>
@@ -119,7 +169,9 @@ export const HomePage = () => {
               voluptatibus quia quos molestiae natus?”
             </p>
           </div>
-          <div className="team__member__display team__member__display--blue"></div>
+          <div
+            className="team__member__display team__member__display--blue"
+            ref={johnDoeContainer}></div>
         </div>
         <div className="team__member team__member--reverse">
           <div className="team__member__body">
@@ -131,7 +183,9 @@ export const HomePage = () => {
               voluptatibus quia quos molestiae natus?”
             </p>
           </div>
-          <div className="team__member__display team__member__display--pink"></div>
+          <div
+            className="team__member__display team__member__display--pink"
+            ref={juliaDoeContainer}></div>
         </div>
         <div className="team__member">
           <div className="team__member__body">
@@ -143,7 +197,9 @@ export const HomePage = () => {
               voluptatibus quia quos molestiae natus?”
             </p>
           </div>
-          <div className="team__member__display team__member__display--orange"></div>
+          <div
+            className="team__member__display team__member__display--orange"
+            ref={lindaDoeContainer}></div>
         </div>
       </section>
       <section className="portfolio" id="portfolio">
@@ -152,7 +208,7 @@ export const HomePage = () => {
           We have worked on amazing projects for our clients. Here are some of
           them.
         </p>
-        <div className="portfolio__display"></div>
+        <div className="portfolio__display" ref={portfolioContainer}></div>
       </section>
       <section className="contact" id="contact">
         <h2 className="contact__title">Contact Us</h2>
@@ -174,8 +230,7 @@ export const HomePage = () => {
           <div>
             <textarea
               className="contact__form__textarea"
-              placeholder="Message"
-            ></textarea>
+              placeholder="Message"></textarea>
           </div>
           <div>
             <button className="contact__form__button">Send</button>
