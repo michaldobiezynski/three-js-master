@@ -57,6 +57,15 @@ export const Experience = () => {
     }),
   });
 
+  useControls("fit", {
+    fitToBox: button(() => {
+      controls.current.fitToBox(box.current, true);
+    }),
+    fitToSphere: button(() => {
+      controls.current.fitToSphere(sphere.current, false);
+    }),
+  });
+
   return (
     <>
       <CameraControls ref={controls} />
