@@ -23,6 +23,9 @@ export const Experience = () => {
     right: button(() => {
       controls.current.truck(0.5, 0, true);
     }),
+    diagonal: button(() => {
+      controls.current.truck(0.5, -0.5, true);
+    }),
   });
 
   return (
