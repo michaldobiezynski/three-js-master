@@ -21,10 +21,18 @@ export const Experience = () => {
   const cornerRenderTarget = useFBO();
   const bufferRenderTarget = useFBO();
 
+  // useFrame(({ gl, camera, scene }) => {
+  //   gl.setRenderTarget(bufferRenderTarget);
+  //   gl.render(scene, camera);
+  //   tvMaterial.current.map = bufferRenderTarget.texture;
+  //   gl.setRenderTarget(cornerRenderTarget);
+  //   gl.render(scene, camera);
+  //   gl.setRenderTarget(null);
+  //   tvMaterial.current.map = cornerRenderTarget.texture;
+  // });
+
   useFrame(({ gl, camera, scene }) => {
-    gl.setRenderTarget(bufferRenderTarget);
-    gl.render(scene, camera);
-    tvMaterial.current.map = bufferRenderTarget.texture;
+    tvMaterial.current.map = videoTexture;
     gl.setRenderTarget(cornerRenderTarget);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
