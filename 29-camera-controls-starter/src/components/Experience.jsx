@@ -66,6 +66,17 @@ export const Experience = () => {
     }),
   });
 
+  const cameraPositions = {
+    intro: [0, 0, 3, 0, 0, 0],
+    titanium: [0, 0, 3, 0, 0, 0],
+    camera: [0, 0, 3, 0, 0, 0],
+    "action-button": [0, 0, 3, 0, 0, 0],
+  };
+
+  const playTransition = () => {
+    controls.current.setLookAt(...cameraPositions[sections[section]], true);
+  };
+
   const intro = async () => {
     controls.current.setLookAt(0, 0, 5, 0, 0, 0, false);
     await controls.current.dolly(3, true);
