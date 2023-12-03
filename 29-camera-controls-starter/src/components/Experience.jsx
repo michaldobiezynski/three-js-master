@@ -10,6 +10,21 @@ export const Experience = () => {
     out: button(() => controls.current?.dolly(-1, true)),
   });
 
+  useControls("truck", {
+    up: button(() => {
+      controls.current.truck(0, -0.5, true);
+    }),
+    left: button(() => {
+      controls.current.truck(-0.5, 0, true);
+    }),
+    down: button(() => {
+      controls.current.truck(0, 0.5, true);
+    }),
+    right: button(() => {
+      controls.current.truck(0.5, 0, true);
+    }),
+  });
+
   return (
     <>
       <CameraControls ref={controls} />
