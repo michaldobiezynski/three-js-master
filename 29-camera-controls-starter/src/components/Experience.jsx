@@ -116,6 +116,15 @@ export const Experience = ({ section }) => {
     }),
   });
 
+  useControls("Helper", {
+    getLookAt: button(() => {
+      const position = controls.current.getPosition();
+      const target = controls.current.getTarget();
+      console.log([...position, ...target]);
+    }),
+    toJson: button(() => console.log(controls.current.toJSON())),
+  });
+
   const playTransition = () => {
     if (window.innerWidth > SMALL_SCREEN_THRESHOLD) {
       controls.current.setLookAt(...cameraPositions[sections[section]], true);
