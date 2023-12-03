@@ -4,6 +4,8 @@ import { useControls, button } from "leva";
 
 export const Experience = () => {
   const controls = useRef();
+  const box = useRef();
+  const sphere = useRef();
 
   useControls("Settings", {
     smoothTime: {
@@ -58,6 +60,14 @@ export const Experience = () => {
   return (
     <>
       <CameraControls ref={controls} />
+      <mesh ref={box}>
+        <boxGeometry args={[0.5, 1, 0.2]} />
+        <meshBasicMaterial color="mediumpurple" wireframe />
+      </mesh>
+      <mesh ref={sphere}>
+        <sphereGeometry args={[0.3, 64]} />
+        <meshBasicMaterial color="hotpink" wireframe />
+      </mesh>
       <Gltf
         position={[0, 0, 0]}
         src="models/apple_iphone_15_pro_max_black.glb"
