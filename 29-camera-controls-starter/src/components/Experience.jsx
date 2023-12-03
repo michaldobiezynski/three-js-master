@@ -1,5 +1,5 @@
 import { Environment, Gltf, CameraControls } from "@react-three/drei";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useControls, button } from "leva";
 
 export const Experience = () => {
@@ -66,14 +66,24 @@ export const Experience = () => {
     }),
   });
 
+  const intro = async () => {
+    controls.current.setLookAt(0, 0, 5, 0, 0, 0, false);
+    await controls.current.dolly(3, true);
+    await controls.current.rotate(degToRad(45), degToRad(25), true);
+  };
+
+  useEffect(() => {
+    intro();
+  }, []);
+
   return (
     <>
       <CameraControls ref={controls} />
-      <mesh ref={box}>
+      <mesh visible={false} ref={box}>
         <boxGeometry args={[0.5, 1, 0.2]} />
         <meshBasicMaterial color="mediumpurple" wireframe />
       </mesh>
-      <mesh ref={sphere}>
+      <mesh visible={false} ref={sphere}>
         <sphereGeometry args={[0.3, 64]} />
         <meshBasicMaterial color="hotpink" wireframe />
       </mesh>
