@@ -5,6 +5,18 @@ import { useControls, button } from "leva";
 export const Experience = () => {
   const controls = useRef();
 
+  useControls("Settings", {
+    smoothTime: {
+      value: 0.35,
+      min: 0.1,
+      max: 2,
+      step: 0.1,
+      onChange: (value) => {
+        controls.current.smoothTime = value;
+      },
+    },
+  });
+
   useControls("Dolly", {
     in: button(() => controls.current?.dolly(1, true)),
     out: button(() => controls.current?.dolly(-1, true)),
