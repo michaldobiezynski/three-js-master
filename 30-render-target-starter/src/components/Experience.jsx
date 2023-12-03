@@ -3,24 +3,22 @@ import {
   Environment,
   Gltf,
   OrbitControls,
-  Sky,
-  useVideoTexture,
-  useFBO,
   PerspectiveCamera,
+  Sky,
+  useFBO,
+  useVideoTexture,
 } from "@react-three/drei";
-import { Vector3 } from "three";
-import { Avatar } from "./Avatar";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import { Vector3 } from "three";
 import { useRemote } from "../hooks/useRemote";
-import {} from "@react-three/drei";
+import { Avatar } from "./Avatar";
+
+const VECTOR_ZERO = new Vector3(0, 0, 0);
 
 export const Experience = () => {
-  const { mode } = useRemote();
-
-  const tvMaterial = useRef();
-
   const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
+
   const frontCamera = useRef();
   const frontRenderTarget = useFBO();
 
@@ -29,19 +27,14 @@ export const Experience = () => {
 
   const cornerCamera = useRef();
   const cornerRenderTarget = useFBO();
-  const bufferRenderTarget = useFBO();
 
-  // useFrame(({ gl, camera, scene }) => {
-  //   gl.setRenderTarget(bufferRenderTarget);
-  //   gl.render(scene, camera);
-  //   tvMaterial.current.map = bufferRenderTarget.texture;
-  //   gl.setRenderTarget(cornerRenderTarget);
-  //   gl.render(scene, camera);
-  //   gl.setRenderTarget(null);
-  //   tvMaterial.current.map = cornerRenderTarget.texture;
-  // });
+  const tvMaterial = useRef();
 
-  useFrame(({ gl, scene }) => {
+  useFrame(({ camera, gl, scene }) => {
+    topCamera.current.lookAt(VECTOR_ZERO);
+    cornerCamera.current.lookAt(VECTOR_ZERO);
+    frontCamera.current.lookAt(VECTOR_ZERO);
+
     tvMaterial.current.map = videoTexture;
 
     let currentScreenTexture = videoTexture;
@@ -62,6 +55,17 @@ export const Experience = () => {
 
     if (mode === "front") {
       currentScreenTexture = frontRenderTarget.texture;
+      // Open mouth of the avatar
+      scene.traverse((node) => {
+        if (node.morphTargetInfluences) {
+          node.morphTargetInfluences[
+            node.morphTargetDictionary["mouthSmile"]
+          ] = 1;
+          node.morphTargetInfluences[
+            node.morphTargetDictionary["mouthOpen"]
+          ] = 1;
+        }
+      });
       gl.setRenderTarget(frontRenderTarget);
       gl.render(scene, frontCamera.current);
     }
@@ -70,7 +74,18 @@ export const Experience = () => {
 
     // Reset tvMaterial to the current screen texture
     tvMaterial.current.map = currentScreenTexture;
+    // Reset avatar mouth
+    scene.traverse((node) => {
+      if (node.morphTargetInfluences) {
+        node.morphTargetInfluences[
+          node.morphTargetDictionary["mouthSmile"]
+        ] = 0;
+        node.morphTargetInfluences[node.morphTargetDictionary["mouthOpen"]] = 0;
+      }
+    });
   });
+
+  const { mode } = useRemote();
 
   return (
     <>
@@ -79,6 +94,19 @@ export const Experience = () => {
         minDistance={2}
         maxDistance={5}
       />
+      <group position-y={-0.5}>
+        <group>
+          <Sky />
+          <Avatar rotation-y={Math.PI} scale={0.45} position-z={0.34} />
+          <Gltf src="models/Room.glb" scale={0.3} rotation-y={-Math.PI / 2} />
+          <mesh position-x={0.055} position-y={0.48} position-z={-0.601}>
+            <planeGeometry args={[0.63, 0.44]} />
+            <meshBasicMaterial ref={tvMaterial} />
+          </mesh>
+        </group>
+      </group>
+      <Environment preset="sunset" />
+      <ContactShadows position-y={-1} blur={2} opacity={0.42} />
       <PerspectiveCamera
         position={[0, 0, -0.3]}
         fov={50}
@@ -97,19 +125,6 @@ export const Experience = () => {
         near={0.1}
         ref={cornerCamera}
       />
-      <group position-y={-0.5}>
-        <group>
-          <Sky />
-          <Avatar rotation-y={Math.PI} scale={0.45} position-z={0.34} />
-          <Gltf src="models/Room.glb" scale={0.3} rotation-y={-Math.PI / 2} />
-          <mesh position-x={0.055} position-y={0.48} position-z={-0.601}>
-            <planeGeometry args={[0.63, 0.44]} />
-            <meshBasicMaterial ref={tvMaterial} />
-          </mesh>
-        </group>
-      </group>
-      <Environment preset="sunset" />
-      <ContactShadows position-y={-1} blur={2} opacity={0.42} />
     </>
   );
 };
