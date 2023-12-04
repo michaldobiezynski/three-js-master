@@ -3,10 +3,20 @@ import { EffectComposer } from "@react-three/postprocessing";
 import { Vignette } from "@react-three/postprocessing";
 import { Bloom } from "@react-three/postprocessing";
 import { BrightnessContrast } from "@react-three/postprocessing";
+import { Sepia } from "@react-three/postprocessing";
+
+import { BlendFunction } from "postprocessing";
 
 import { useControls } from "leva";
 
 export const Effects = () => {
+  const sepiaConfig = useControls("sepia", {
+    enabled: true,
+    blendFunction: {
+      value: "DARKEN",
+      options: Object.keys(BlendFunction),
+    },
+  });
   const brightnessContrastConfig = useControls("brightnessContrast", {
     enabled: true,
     brightness: { value: 0.02, min: -1, max: 1 },
@@ -38,6 +48,12 @@ export const Effects = () => {
       {bloomConfig.enabled && <Bloom {...bloomConfig} />}
       {brightnessContrastConfig.enabled && (
         <BrightnessContrast {...brightnessContrastConfig} />
+      )}
+      {sepiaConfig.enabled && (
+        <Sepia
+          {...sepiaConfig}
+          blendFunction={BlendFunction[sepiaConfig.blendFunction]}
+        />
       )}
     </EffectComposer>
   );
