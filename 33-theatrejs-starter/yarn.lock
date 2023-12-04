@@ -786,31 +786,31 @@
   resolved "https://registry.yarnpkg.com/@stitches/react/-/react-1.2.8.tgz#954f8008be8d9c65c4e58efa0937f32388ce3a38"
   integrity sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==
 
-"@theatre/core@0.5":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@theatre/core/-/core-0.5.1.tgz#5a10b8a9a8e5887371e870732c043340a6f5be5a"
-  integrity sha512-LV3LwHPWVm62bR6DUQ55t4kCaI1KGrz+rPLoA6pMJ57x+6vBpoSCI0b11gJPdA1mCXebcNWN+U5M3PP6jJaSSg==
+"@theatre/core@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@theatre/core/-/core-0.7.0.tgz#1bcc074056cf2536f2818b0ad3a59fba97142d32"
+  integrity sha512-CXRUxOaKQtb4biQa6+I6PW8wPsFj9NsZgr7VdosSB20WxlanQ8/ZR0xH/A3A3oCHdCXKaZxQlNcEOeByk4Yf/g==
   dependencies:
-    "@theatre/dataverse" "0.5.1"
+    "@theatre/dataverse" "0.7.0"
 
-"@theatre/dataverse@0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@theatre/dataverse/-/dataverse-0.5.1.tgz#75dd106de042fe11265314edefa98d0045714405"
-  integrity sha512-oTjR8fNDbY11GSp7kw8quuOE9IC/5qzTe++OjFgn5enHKcFSaSPAZ8SIyOs+Im9bYgjcJFg/AYgU3Xi/MENgwQ==
+"@theatre/dataverse@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@theatre/dataverse/-/dataverse-0.7.0.tgz#d8c75342ae5fd15a88b32b5a000c31fd40facf16"
+  integrity sha512-NbhTZYOqETp9g0II7R9GypErnZ47TmoT6yzyQ0vGfgVLD1a+dsPG+CLvvyzssbGG/gfDDoMzkXNwWJAwNkqFvQ==
   dependencies:
     lodash-es "^4.17.21"
 
-"@theatre/r3f@0.5":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@theatre/r3f/-/r3f-0.5.1.tgz#7c47d653ff879ecd26b53fe15846825fce89f627"
-  integrity sha512-y42yxafM2kjk1iQImZPp7+qe21OviZhSY9h1Lh07YZWWSeMRoK1rASqtY+DQvawh8IqOT4ySBUX/zMBPoaRvPQ==
+"@theatre/r3f@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@theatre/r3f/-/r3f-0.7.0.tgz#aa5f784d840fe597aeae064079aa5335c0086559"
+  integrity sha512-ta4OO1bCZeeFvxm/pbPAVvDqng+t/D08aBWlNULFLoEsd/WWUItIUCEdQQR1MiYQ0WQTKpfyp4yXV98hZvCDuw==
 
-"@theatre/studio@0.5":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@theatre/studio/-/studio-0.5.1.tgz#1dbe3d99943b1e628b7e5722499290961ba74c12"
-  integrity sha512-6r8JjSdUhL8JXMLlnhOLLFc/Br5Ddcq4EQmwUSCEBbFuJZcyb++GxV23p5W7a0DiB7NgtKdORj77n5NBt0WEpA==
+"@theatre/studio@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@theatre/studio/-/studio-0.7.0.tgz#d5ea0bb6be6941eadb6347851371db51379df3fe"
+  integrity sha512-aBkDUBmvajWaha5dd/6Fs7sHCDMQKqVlLX9SDGsMJkKoCEb9dzwD5F5FOZCWt+OhbbwIbP9dYR6S4n6abyDkBQ==
   dependencies:
-    "@theatre/dataverse" "0.5.1"
+    "@theatre/dataverse" "0.7.0"
 
 "@tweenjs/tween.js@~18.6.4":
   version "18.6.4"
