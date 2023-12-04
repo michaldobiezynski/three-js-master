@@ -3,10 +3,14 @@ import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
+import { getProject } from "@theatre/core";
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Home");
+
+  const project = getProject("MedievalTown");
+  const mainSheet = project.sheet("Main");
 
   return (
     <>
