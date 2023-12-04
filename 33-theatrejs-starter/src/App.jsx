@@ -4,6 +4,7 @@ import { useState } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
 import { getProject } from "@theatre/core";
+import { SheetProvider } from "@theatre/r3f";
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState("Intro");
@@ -21,7 +22,9 @@ function App() {
       />
       <Canvas camera={{ position: [5, 5, 10], fov: 30, near: 1 }} shadows>
         <SoftShadows />
-        <Experience />
+        <SheetProvider sheet={mainSheet}>
+          <Experience />
+        </SheetProvider>
       </Canvas>
     </>
   );
