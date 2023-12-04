@@ -4,12 +4,17 @@ import { Vignette } from "@react-three/postprocessing";
 import { Bloom } from "@react-three/postprocessing";
 import { BrightnessContrast } from "@react-three/postprocessing";
 import { Sepia } from "@react-three/postprocessing";
+import { Noise } from "@react-three/postprocessing";
 
 import { BlendFunction } from "postprocessing";
 
 import { useControls } from "leva";
 
 export const Effects = () => {
+  const noiseConfig = useControls("noise", {
+    enabled: true,
+    opacity: { value: 0.1, min: 0, max: 1 },
+  });
   const sepiaConfig = useControls("sepia", {
     enabled: true,
     blendFunction: {
@@ -55,6 +60,7 @@ export const Effects = () => {
           blendFunction={BlendFunction[sepiaConfig.blendFunction]}
         />
       )}
+      {noiseConfig.enabled && <Noise {...noiseConfig} />}
     </EffectComposer>
   );
 };
