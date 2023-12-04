@@ -5,6 +5,7 @@ import { Bloom } from "@react-three/postprocessing";
 import { BrightnessContrast } from "@react-three/postprocessing";
 import { Sepia } from "@react-three/postprocessing";
 import { Noise } from "@react-three/postprocessing";
+import { Autofocus } from "@react-three/postprocessing";
 
 import { BlendFunction } from "postprocessing";
 
@@ -47,6 +48,16 @@ export const Effects = () => {
     intensity: { value: 1.28, min: 0, max: 2 },
     mipmapBlur: true,
   });
+
+  const autofocusConfig = useControls("autofocus", {
+    enabled: true,
+    mouse: true,
+    focusRange: { value: 0.001, min: 0, max: 0.01 },
+    bokehScale: { value: 8, min: 0, max: 40 },
+    focalLength: { value: 0.8, min: 0, max: 1 },
+    smoothTime: { value: 0.5, min: 0, max: 1 },
+  });
+
   return (
     <EffectComposer>
       {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
@@ -61,6 +72,7 @@ export const Effects = () => {
         />
       )}
       {noiseConfig.enabled && <Noise {...noiseConfig} />}
+      {autofocusConfig.enabled && <Autofocus {...autofocusConfig} />}
     </EffectComposer>
   );
 };
