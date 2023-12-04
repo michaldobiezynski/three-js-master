@@ -7,6 +7,9 @@ import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
 import extension from "@theatre/r3f/dist/extension";
 import studio from "@theatre/studio";
+import { PerspectiveCamera } from "@theatre/r3f";
+import { useRef } from "react";
+import { editable as e } from "@theatre/r3f";
 
 studio.initialize();
 studio.extend(extension);
@@ -17,6 +20,8 @@ function App() {
 
   const project = getProject("MedievalTown");
   const mainSheet = project.sheet("Main");
+
+  const cameraTargetRef = useRef();
 
   return (
     <>
@@ -33,6 +38,20 @@ function App() {
         }}>
         <SoftShadows />
         <SheetProvider sheet={mainSheet}>
+          <PerspectiveCamera
+            position={[5, 5, 10]}
+            fov={30}
+            near={1}
+            makeDefault
+            theatreKey="Camera"
+          />
+          <e.mesh
+            theatreKey="Camera Target"
+            visible="editor"
+            ref={cameraTargetRef}>
+            <octahedronBufferGeometry args={[0.1, 0]} />
+            <meshPhongMaterial color="yellow" />
+          </e.mesh>
           <Experience />
         </SheetProvider>
       </Canvas>
