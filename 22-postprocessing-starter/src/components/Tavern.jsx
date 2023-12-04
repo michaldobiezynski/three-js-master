@@ -11,6 +11,11 @@ export function Tavern(props) {
     "/models/Cozy Tavern - First Floor 2.glb"
   );
 
+  React.useEffect(() => {
+    materials.mat12.color.multiplyScalar(50);
+    materials.mat12.toneMapped = false;
+  }, []);
+
   return (
     <group {...props} dispose={null}>
       <mesh
