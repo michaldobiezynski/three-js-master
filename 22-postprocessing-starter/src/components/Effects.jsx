@@ -1,6 +1,8 @@
 import { EffectComposer } from "@react-three/postprocessing";
 
 import { Vignette } from "@react-three/postprocessing";
+import { Bloom } from "@react-three/postprocessing";
+
 import { useControls } from "leva";
 
 export const Effects = () => {
@@ -17,9 +19,17 @@ export const Effects = () => {
       max: 1,
     },
   });
+
+  const bloomConfig = useControls("bloom", {
+    enabled: true,
+    luminanceThreshold: { value: 1, min: 0, max: 2 },
+    intensity: { value: 1.28, min: 0, max: 2 },
+    mipmapBlur: true,
+  });
   return (
     <EffectComposer>
       {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
+      {bloomConfig.enabled && <Bloom {...bloomConfig} />}
     </EffectComposer>
   );
 };
