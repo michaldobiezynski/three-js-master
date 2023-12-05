@@ -27,8 +27,8 @@ const mainSheet = project.sheet("Main");
 
 const transitions = {
   Home: [0, 5],
-  Castle: [6, 12 + 22 / 30],
-  Windmill: [13 + 2 / 30, 17 + 23 / 30],
+  Castle: [6, 5 + 22 / 30],
+  Windmill: [13 + 2 / 30, 10 + 23 / 30],
 };
 
 function App() {
@@ -79,8 +79,7 @@ function App() {
         gl={{
           preserveDrawingBuffer: true,
         }}
-        shadows
-      >
+        shadows>
         <SoftShadows />
         <SheetProvider sheet={mainSheet}>
           <e.fog theatreKey="Fog" attach="fog" args={["#cc7b32", 3, 5]} />
@@ -95,8 +94,7 @@ function App() {
           <e.mesh
             theatreKey="Camera Target"
             visible="editor"
-            ref={cameraTargetRef}
-          >
+            ref={cameraTargetRef}>
             <octahedronBufferGeometry args={[0.1, 0]} />
             <meshPhongMaterial color="yellow" />
           </e.mesh>
