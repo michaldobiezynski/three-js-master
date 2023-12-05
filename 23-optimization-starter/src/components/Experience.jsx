@@ -1,4 +1,9 @@
-import { ContactShadows, OrbitControls } from "@react-three/drei";
+import {
+  ContactShadows,
+  OrbitControls,
+  Instance,
+  Instances,
+} from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 
@@ -13,12 +18,7 @@ const Box = ({ scale, position, color, speed }) => {
     if (ref.current.position.z < -50) ref.current.position.z = 10;
   });
 
-  return (
-    <mesh ref={ref} position={position} scale={scale}>
-      <boxGeometry />
-      <meshStandardMaterial color={color} side={THREE.DoubleSide} />
-    </mesh>
-  );
+  return <Instance ref={ref} position={position} scale={scale} />;
 };
 
 export const Experience = () => {
@@ -44,15 +44,19 @@ export const Experience = () => {
       />
       <NinjaMale scale={1.4} />
       <ContactShadows opacity={0.5} />
-      {boxes.map(({ scale, position, color, speed }, i) => (
-        <Box
-          key={i}
-          scale={scale}
-          position={position}
-          color={color}
-          speed={speed}
-        />
-      ))}
+      <Instances>
+        <boxGeometry />
+        <meshStandardMaterial side={THREE.DoubleSide} />
+        {boxes.map(({ scale, position, color, speed }, i) => (
+          <Box
+            key={i}
+            scale={scale}
+            position={position}
+            color={color}
+            speed={speed}
+          />
+        ))}
+      </Instances>
     </>
   );
 };
