@@ -18,7 +18,7 @@ const Box = ({ scale, position, color, speed }) => {
     if (ref.current.position.z < -50) ref.current.position.z = 10;
   });
 
-  return <Instance ref={ref} position={position} scale={scale} />;
+  return <Instance ref={ref} position={position} scale={scale} color={color} />;
 };
 
 export const Experience = () => {
